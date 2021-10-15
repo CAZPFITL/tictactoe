@@ -1,9 +1,18 @@
-export default class Helpers {
+import Canvas from './Canvas.js'
+
+export interface HelpersProps {
+    test: () => void
+}
+export default class Helpers extends Canvas {
+    test: () => void
+    constructor() {
+        super()
+    }
     /**
-     * Creates Snake on window global variable
+     * Static Function Test
      * @param {AppClass} App 
      */
     static test() {
-        console.log('HOLAA');
+        console.log('Hey, listen!');
     }
 }
