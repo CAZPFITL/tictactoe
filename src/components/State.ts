@@ -20,6 +20,7 @@ export default class State {
         this.parentStateOwner = app
         this.state = ''
         this.showNotifications = false
+        this.add(app)
     }
     /**
      * Add observer to state

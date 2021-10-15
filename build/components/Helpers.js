@@ -20,11 +20,67 @@ var Helpers = /** @class */ (function (_super) {
         return _super.call(this) || this;
     }
     /**
-     * Static Function Test
-     * @param {AppClass} App
+     * This functions gives to Snake the fullscreen functionality
      */
-    Helpers.test = function () {
-        console.log('Hey, listen!');
+    Helpers.fullScreenFunctionality = function () {
+        var game = window.TicTacToe;
+        // Iniciar pantalla completa
+        game.fullScreen = function () {
+            game.isFull = !game.isFull;
+            var docElm = document.documentElement;
+            //W3C   
+            if (docElm.requestFullscreen) {
+                docElm.requestFullscreen();
+            }
+        };
+        // Salir de pantalla completa
+        game.normalScreen = function () {
+            game.isFull = !game.isFull;
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        };
+    };
+    /**
+     * returns a random number
+     * @param {Max Limit} max
+     * @returns
+     */
+    Helpers.getRandomInt = function (max) {
+        return Math.floor(Math.random() * max);
+    };
+    /**
+     * returns the String capitalized
+     * @param {String} str
+     * @returns
+     */
+    Helpers.capitalize = function (str) {
+        if (typeof str === 'undefined') {
+            return false;
+        }
+        else {
+            var fistLetter = str.charAt(0).toUpperCase();
+            var slicedWord = str.slice(1);
+            return fistLetter + slicedWord;
+        }
+    };
+    /**
+     * This function helps to get the relative coordenate for your game canvas
+     * @param {number to be converted} num
+     * @returns number converted
+     */
+    Helpers.getStepSize = function (num) {
+        return window.TicTacToe.counters.stepSize * num;
+    };
+    /**
+     * returns state function related
+     * @returns processed state
+     */
+    Helpers.getStateFunction = function () {
+        var game = window.TicTacToe;
+        var func = game.state.state.split(' ');
+        func[1] = game.helpers.capitalize(func[1]);
+        return func.join('');
     };
     return Helpers;
 }(Canvas));
