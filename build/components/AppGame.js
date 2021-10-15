@@ -9,6 +9,9 @@ var AppGame = /** @class */ (function () {
         };
         this.state = new State(this);
         this.helpers = Helpers;
+        this.counters = {
+            stepSize: 20
+        };
         window.TicTacToe = this;
     }
     AppGame.init = function () {
@@ -20,7 +23,7 @@ var AppGame = /** @class */ (function () {
      */
     AppGame.prototype.notification = function () {
         // game.helpers.drawScreen(game.state.state)
-        var funct = this.helpers.getStateFunction();
+        var funct = window.TicTacToe.helpers.getStateFunction();
         console.log('state:', funct);
         if (window.TicTacToe[funct]) {
             window.TicTacToe[funct]();
@@ -28,10 +31,10 @@ var AppGame = /** @class */ (function () {
     };
     AppGame.prototype.loadRequest = function () {
         console.log('hello from load request');
-        this.helpers.createCanvas();
-        this.helpers.fullScreenFunctionality();
-        window.addEventListener('keydown', this.helpers.processKeyDown);
-        window.addEventListener('resize', this.helpers.getCanvas);
+        window.TicTacToe.helpers.createCanvas();
+        window.TicTacToe.helpers.fullScreenFunctionality();
+        window.addEventListener('keydown', window.TicTacToe.helpers.processKeyDown);
+        window.addEventListener('resize', window.TicTacToe.helpers.getCanvas);
     };
     return AppGame;
 }());

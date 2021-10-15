@@ -5,7 +5,7 @@ var Canvas = /** @class */ (function () {
      * returns a brand new canvas for the game
      * @returns canvas created
      */
-    Canvas.prototype.getCanvas = function () {
+    Canvas.getCanvas = function () {
         var _a, _b;
         var game = window.TicTacToe;
         var canvas = (_a = document.querySelector('canvas')) !== null && _a !== void 0 ? _a : document.createElement('canvas');
@@ -27,7 +27,7 @@ var Canvas = /** @class */ (function () {
     /**
      * Create canvas in DOM and Snake Global
      */
-    Canvas.prototype.createCanvas = function () {
+    Canvas.createCanvas = function () {
         console.log('message');
         var game = window.TicTacToe;
         var canvas = game.helpers.getCanvas();

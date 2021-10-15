@@ -22,7 +22,7 @@ var Helpers = /** @class */ (function (_super) {
     /**
      * This functions gives to Snake the fullscreen functionality
      */
-    Helpers.prototype.fullScreenFunctionality = function () {
+    Helpers.fullScreenFunctionality = function () {
         var game = window.TicTacToe;
         // Iniciar pantalla completa
         game.fullScreen = function () {
@@ -46,7 +46,7 @@ var Helpers = /** @class */ (function (_super) {
      * @param {Max Limit} max
      * @returns
      */
-    Helpers.prototype.getRandomInt = function (max) {
+    Helpers.getRandomInt = function (max) {
         return Math.floor(Math.random() * max);
     };
     /**
@@ -54,7 +54,7 @@ var Helpers = /** @class */ (function (_super) {
      * @param {String} str
      * @returns
      */
-    Helpers.prototype.capitalize = function (str) {
+    Helpers.capitalize = function (str) {
         if (typeof str === 'undefined') {
             return false;
         }
@@ -69,7 +69,7 @@ var Helpers = /** @class */ (function (_super) {
      * @param {number to be converted} num
      * @returns number converted
      */
-    Helpers.prototype.getStepSize = function (num) {
+    Helpers.getStepSize = function (num) {
         console.log('iasdaishdsad');
         return window.TicTacToe.counters.stepSize * num;
     };
@@ -77,7 +77,7 @@ var Helpers = /** @class */ (function (_super) {
      * returns state function related
      * @returns processed state
      */
-    Helpers.prototype.getStateFunction = function () {
+    Helpers.getStateFunction = function () {
         var game = window.TicTacToe;
         var func = game.state.state.split(' ');
         func[1] = game.helpers.capitalize(func[1]);
