@@ -1,29 +1,21 @@
-import Helpers, { HelpersProps } from './Helpers.js';
+import Helpers from './Helpers.js';
 import State, { StateProps } from './State.js';
-export interface AppGameProps {
-    readonly name: string;
-    readonly helpers: HelpersProps;
-    isFull: boolean;
-    state: StateProps;
-    match: MatchProps;
-    fullScreen: ()=>void;
-    normalScreen: ()=>void;
-}
 
 type MatchProps = {
     // cells?: any[]
     cells?: Array<any>
 }
-
 export class AppGame {
     readonly name: string;
-    readonly helpers: HelpersProps;
+    readonly helpers: object;
     isFull: boolean;
     state: StateProps;
     match: MatchProps;
-    game: any;
+    game: object;
+    ctx: object;
     fullScreen: ()=>void;
     normalScreen: ()=>void;
+    
     constructor() {
         this.name = 'Tic Tac Toe';
         this.isFull = false;
@@ -31,8 +23,8 @@ export class AppGame {
             cells: [['Game Cells'], [false, false, false], [false, false, false], [false, false, false]]
         };
         this.state = new State(this) as StateProps;
-        this.helpers = Helpers as HelpersProps;
-        (<any>window).TicTacToe = this as AppGameProps;
+        this.helpers = Helpers;
+        (<any>window).TicTacToe = this;
     }
     
     static init() {
@@ -54,5 +46,9 @@ export class AppGame {
 
     loadRequest() {
         console.log('hello from load request')
+        this.helpers.createCanvas()
+        this.helpers.fullScreenFunctionality()
+        window.addEventListener('keydown', this.helpers.processKeyDown)
+        window.addEventListener('resize', this.helpers.getCanvas);
     }
 }

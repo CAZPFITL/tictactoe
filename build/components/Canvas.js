@@ -1,4 +1,3 @@
-var game = window.TicTacToe;
 var Canvas = /** @class */ (function () {
     function Canvas() {
     }
@@ -6,8 +5,9 @@ var Canvas = /** @class */ (function () {
      * returns a brand new canvas for the game
      * @returns canvas created
      */
-    Canvas.getCanvas = function () {
+    Canvas.prototype.getCanvas = function () {
         var _a, _b;
+        var game = window.TicTacToe;
         var canvas = (_a = document.querySelector('canvas')) !== null && _a !== void 0 ? _a : document.createElement('canvas');
         var step = game.counters.stepSize;
         var lastDigitW = parseInt(window.innerWidth.toString().slice(-1));
@@ -23,6 +23,19 @@ var Canvas = /** @class */ (function () {
         Height = (Height / step) % 1 === 0 ? (Height / step) : (Height / step) + 0.5;
         game.canvasBounds = [Width - 2, Height - 2];
         return canvas;
+    };
+    /**
+     * Create canvas in DOM and Snake Global
+     */
+    Canvas.prototype.createCanvas = function () {
+        console.log('message');
+        var game = window.TicTacToe;
+        var canvas = game.helpers.getCanvas();
+        // let screen = game.helpers.getScreen()
+        game.ctx = canvas.getContext('2d');
+        // document.getElementsByTagName('body')[0].prepend(screen)
+        document.getElementsByTagName('body')[0].prepend(canvas);
+        game.helpers.requestAnimation();
     };
     return Canvas;
 }());

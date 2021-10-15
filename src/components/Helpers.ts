@@ -1,18 +1,5 @@
 import Canvas from './Canvas.js'
-export interface HelpersProps {
-    fullScreenFunctionality: () => void;
-    getRandomInt: (number) => number;
-    capitalize: (string) => string;
-    getStepSize: (number) => number;
-    getStateFunction: () => string;
-}
 export default class Helpers extends Canvas {
-    fullScreenFunctionality: () => void;
-    getRandomInt: (number) => number;
-    capitalize: (string) => string;
-    getStepSize: (number) => number;
-    getStateFunction: () => string;
-
     constructor() {
         super()
     }
@@ -20,7 +7,7 @@ export default class Helpers extends Canvas {
     /**
      * This functions gives to Snake the fullscreen functionality
      */
-    static fullScreenFunctionality() {
+    public static fullScreenFunctionality(): void {
         const game: any = (<any>window).TicTacToe
 
         // Iniciar pantalla completa
@@ -48,7 +35,7 @@ export default class Helpers extends Canvas {
      * @param {Max Limit} max 
      * @returns 
      */
-    static getRandomInt(max) {
+    public static getRandomInt(max): number {
         return Math.floor(Math.random() * max);
     }
 
@@ -57,7 +44,7 @@ export default class Helpers extends Canvas {
      * @param {String} str 
      * @returns 
      */
-    static capitalize(str) {
+    public static capitalize(str): string | boolean {
         if (typeof str === 'undefined') {
             return false
         } else {
@@ -72,7 +59,8 @@ export default class Helpers extends Canvas {
      * @param {number to be converted} num 
      * @returns number converted
      */
-    static getStepSize(num) {
+    public static getStepSize(num): number {
+        console.log('iasdaishdsad')
         return (<any>window).TicTacToe.counters.stepSize * num
     }
 
@@ -80,7 +68,7 @@ export default class Helpers extends Canvas {
      * returns state function related
      * @returns processed state
      */
-    static getStateFunction() {
+    public static getStateFunction() {
         const game: any = (<any>window).TicTacToe
 
         let func = game.state.state.split(' ')

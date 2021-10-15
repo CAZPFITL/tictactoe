@@ -28,6 +28,10 @@ var AppGame = /** @class */ (function () {
     };
     AppGame.prototype.loadRequest = function () {
         console.log('hello from load request');
+        this.helpers.createCanvas();
+        this.helpers.fullScreenFunctionality();
+        window.addEventListener('keydown', this.helpers.processKeyDown);
+        window.addEventListener('resize', this.helpers.getCanvas);
     };
     return AppGame;
 }());
