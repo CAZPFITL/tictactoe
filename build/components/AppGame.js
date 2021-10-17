@@ -5,7 +5,11 @@ var AppGame = /** @class */ (function () {
         this.name = 'Tic Tac Toe';
         this.isFull = false;
         this.match = {
-            cells: [['Game Cells'], [false, false, false], [false, false, false], [false, false, false]]
+            cells: [
+                [{ name: "1-1", state: false, player: false }, { name: "1-2", state: false, player: false }, { name: "1-3", state: false, player: false }],
+                [{ name: "2-1", state: false, player: false }, { name: "2-2", state: false, player: false }, { name: "2-3", state: false, player: false }],
+                [{ name: "3-1", state: false, player: false }, { name: "3-2", state: false, player: false }, { name: "3-3", state: false, player: false }]
+            ]
         };
         this.state = new State(this);
         this.helpers = Helpers;
@@ -33,7 +37,7 @@ var AppGame = /** @class */ (function () {
         console.log('hello from load request');
         window.TicTacToe.helpers.createCanvas();
         window.TicTacToe.helpers.fullScreenFunctionality();
-        window.addEventListener('keydown', window.TicTacToe.helpers.processKeyDown);
+        window.TicTacToe.ctx.canvas.addEventListener('mousedown', window.TicTacToe.helpers.processClick);
         window.addEventListener('resize', window.TicTacToe.helpers.getCanvas);
     };
     return AppGame;

@@ -83,6 +83,20 @@ var Helpers = /** @class */ (function (_super) {
         func[1] = game.helpers.capitalize(func[1]);
         return func.join('');
     };
+    Helpers.processClick = function (e) {
+        var game = window.TicTacToe;
+        var data = game.match.cells;
+        var unit = game.canvasBounds[0] / 3;
+        unit = game.canvasBounds[0] / 3;
+        var i = Math.floor(e.clientY / unit);
+        var j = Math.floor(e.clientX / unit);
+        if (data[i][j]) {
+            data[i][j].state = true;
+            data[i][j].player = 0;
+            console.log('pass', data[i][j]);
+        }
+        window.TicTacToe.helpers.drawBoard();
+    };
     return Helpers;
 }(Canvas));
 export default Helpers;

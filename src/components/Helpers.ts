@@ -68,11 +68,29 @@ export default class Helpers extends Canvas {
      * returns state function related
      * @returns processed state
      */
-    public static getStateFunction() {
+    public static getStateFunction(): string {
         const game: any = (<any>window).TicTacToe
 
         let func = game.state.state.split(' ')
         func[1] = game.helpers.capitalize(func[1])
         return func.join('')
+    }
+
+
+    public static processClick(e: any): void {
+        const game: any = (<any>window).TicTacToe;
+        let data = game.match.cells;
+        let unit = game.canvasBounds[0] / 3;
+        unit = game.canvasBounds[0] / 3;
+        let i = Math.floor(e.clientY / unit);
+        let j = Math.floor(e.clientX / unit);
+
+        if (data[i][j]) {
+            data[i][j].state = <boolean>true;
+            data[i][j].player = <number>0;
+            console.log('pass', data[i][j])
+        }
+        
+        (<any>window).TicTacToe.helpers.drawBoard();
     }
 }

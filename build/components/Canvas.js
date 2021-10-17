@@ -9,11 +9,10 @@ var Canvas = /** @class */ (function () {
         var _a;
         var game = window.TicTacToe;
         var canvas = (_a = document.querySelector('canvas')) !== null && _a !== void 0 ? _a : document.createElement('canvas');
-        var step = game.counters.stepSize;
         var lastDigitW = parseInt(window.innerWidth.toString().slice(-1));
         var lasDigitH = parseInt(window.innerHeight.toString().slice(-1));
-        var Width = (window.innerWidth - step) - lastDigitW;
-        var Height = (window.innerHeight - step) - lasDigitH;
+        var Width = (window.innerWidth) - lastDigitW;
+        var Height = (window.innerHeight) - lasDigitH;
         var WidthRef = Width > Height ? Height : Width;
         var HeightRef = Height > Width ? Width : Height;
         canvas.id = 'TicTacToeApp';

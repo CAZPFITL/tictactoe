@@ -6,22 +6,21 @@ export default class Canvas {
     public static getCanvas(): any {
         const game: any = (<any>window).TicTacToe;
         let canvas: any = document.querySelector('canvas') ?? document.createElement('canvas')
-        let step: number = game.counters.stepSize
-
-        let lastDigitW: number = parseInt(window.innerWidth.toString().slice(-1))
-        let lasDigitH: number = parseInt(window.innerHeight.toString().slice(-1))
-
-        let Width: number = (window.innerWidth - step) - lastDigitW
-        let Height: number = (window.innerHeight - step) - lasDigitH
-
-        let WidthRef = Width > Height ? Height : Width
-        let HeightRef = Height > Width ? Width : Height
         
-        canvas.id = 'TicTacToeApp'
+        let lastDigitW: number = <number>parseInt(window.innerWidth.toString().slice(-1))
+        let lasDigitH: number = <number>parseInt(window.innerHeight.toString().slice(-1))
+        
+        let Width: number = (window.innerWidth) - lastDigitW
+        let Height: number = (window.innerHeight) - lasDigitH
+        
+        let WidthRef: number = Width > Height ? Height : Width
+        let HeightRef: number = Height > Width ? Width : Height
+        
+        canvas.id = <string>'TicTacToeApp'
         canvas.width = WidthRef
         canvas.height = HeightRef
 
-        game.canvasBounds = [WidthRef, HeightRef]
+        game.canvasBounds = <any[]>[WidthRef, HeightRef]
 
         return canvas
     }
