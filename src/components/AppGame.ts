@@ -83,8 +83,13 @@ export class AppGame {
         (<any>window).TicTacToe.helpers.fullScreenFunctionality();
         (<any>window).TicTacToe.ctx.canvas.addEventListener('mousedown', (<any>window).TicTacToe.helpers.processClick);
         window.addEventListener('resize', (<any>window).TicTacToe.helpers.getCanvas);
+        (<any>window).TicTacToe.state.changeState('new match');
     }
-
+    
+    newMatch() {
+        console.log('new match')
+    }
+    
     matchOver() {
         console.log('match over');
     }

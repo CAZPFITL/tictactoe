@@ -57,6 +57,10 @@ var AppGame = /** @class */ (function () {
         window.TicTacToe.helpers.fullScreenFunctionality();
         window.TicTacToe.ctx.canvas.addEventListener('mousedown', window.TicTacToe.helpers.processClick);
         window.addEventListener('resize', window.TicTacToe.helpers.getCanvas);
+        window.TicTacToe.state.changeState('new match');
+    };
+    AppGame.prototype.newMatch = function () {
+        console.log('new match');
     };
     AppGame.prototype.matchOver = function () {
         console.log('match over');
