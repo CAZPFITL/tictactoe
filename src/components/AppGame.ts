@@ -5,6 +5,7 @@ type MatchProps = {
     // cells?: any[]
     cells?: Array<any>;
     players?: Array<any>;
+    winner?: Array<any>;
 }
 type CountersProps = {
     stepSize?: number;
@@ -49,6 +50,7 @@ export class AppGame {
                 { id: <number>0, cellsPlayed: <any[]>[], turn: <boolean>false },
                 { id: <number>1, cellsPlayed: <any[]>[], turn: <boolean>false }
             ],
+            winner: <any[]>[]
         };
         this.state = new State(this) as StateProps;
         this.helpers = Helpers;
@@ -71,7 +73,7 @@ export class AppGame {
     notification() {
         // game.helpers.drawScreen(game.state.state)
         let funct: string = (<any>window).TicTacToe.helpers.getStateFunction();
-        console.log('state:', funct);
+        console.log('new state:', funct);
         if ((<any>window).TicTacToe[funct]) {
             (<any>window).TicTacToe[funct]();
         }
@@ -87,9 +89,37 @@ export class AppGame {
     }
     
     newMatch() {
-        console.log('new match')
+        console.log('new match');
+        (<any>window).TicTacToe.counters = {
+            stepSize: 20,
+            cycle: 0,
+            cellsPlayed: 0
+        };
+        (<any>window).TicTacToe.match = {
+            cells: [
+                [
+                    { position: <string>"1-1", state: <boolean>false, player: <boolean>false },
+                    { position: <string>"1-2", state: <boolean>false, player: <boolean>false },
+                    { position: <string>"1-3", state: <boolean>false, player: <boolean>false }
+                ],
+                [
+                    { position: <string>"2-1", state: <boolean>false, player: <boolean>false },
+                    { position: <string>"2-2", state: <boolean>false, player: <boolean>false },
+                    { position: <string>"2-3", state: <boolean>false, player: <boolean>false }
+                ],
+                [
+                    { position: <string>"3-1", state: <boolean>false, player: <boolean>false },
+                    { position: <string>"3-2", state: <boolean>false, player: <boolean>false },
+                    { position: <string>"3-3", state: <boolean>false, player: <boolean>false }
+                ]
+            ],
+            players: [ //TODO: use uuid 4 multiplayer
+                { id: <number>0, cellsPlayed: <any[]>[], turn: <boolean>false },
+                { id: <number>1, cellsPlayed: <any[]>[], turn: <boolean>false }
+            ],
+        };
     }
-    
+
     matchOver() {
         console.log('match over');
     }

@@ -48,7 +48,7 @@ var Canvas = /** @class */ (function () {
         var game = window.TicTacToe;
         var unitW = game.canvasBounds[0] / 3;
         var unitH = (game.canvasBounds[1]) / 3;
-        //Horizontal lines
+        //Horizontal lines:
         game.ctx.beginPath();
         game.ctx.moveTo((unitW * 3), unitH);
         game.ctx.lineTo(0, unitH);
@@ -57,7 +57,7 @@ var Canvas = /** @class */ (function () {
         game.ctx.moveTo((unitW * 3), (unitH * 2));
         game.ctx.lineTo(0, (unitH * 2));
         game.ctx.stroke();
-        //Vertical lines
+        //Vertical lines:
         game.ctx.moveTo(unitW, (unitH * 3));
         game.ctx.lineTo(unitW, 0);
         game.ctx.stroke();
@@ -65,15 +65,13 @@ var Canvas = /** @class */ (function () {
         game.ctx.moveTo((unitW * 2), (unitH * 3));
         game.ctx.lineTo((unitW * 2), 0);
         game.ctx.stroke();
+        //selected cells:
     };
     /**
      * draw game
      */
     Canvas.draw = function () {
         window.TicTacToe.helpers.drawBoard();
-        // (<any>window).TicTacToe.helpers.clearCanvas()
-        // (<any>window).TicTacToe.helpers.drawTarget()
-        // (<any>window).TicTacToe.helpers.drawSnake()
         window.TicTacToe.helpers.requestAnimation();
     };
     return Canvas;

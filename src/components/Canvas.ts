@@ -54,7 +54,7 @@ export default class Canvas {
         const game: any = (<any>window).TicTacToe;
         const unitW = game.canvasBounds[0] / 3
         const unitH = (game.canvasBounds[1]) / 3
-        //Horizontal lines
+        //Horizontal lines:
         game.ctx.beginPath();
         game.ctx.moveTo((unitW * 3), unitH);
         game.ctx.lineTo(0, unitH);
@@ -65,7 +65,7 @@ export default class Canvas {
         game.ctx.lineTo(0, (unitH * 2));
         game.ctx.stroke();
         
-        //Vertical lines
+        //Vertical lines:
         game.ctx.moveTo(unitW, (unitH * 3));
         game.ctx.lineTo(unitW, 0);
         game.ctx.stroke();
@@ -74,6 +74,8 @@ export default class Canvas {
         game.ctx.moveTo((unitW * 2), (unitH * 3));
         game.ctx.lineTo((unitW * 2), 0);
         game.ctx.stroke();
+
+        //selected cells:
     }
 
     /**
@@ -81,9 +83,6 @@ export default class Canvas {
      */
     public static draw() {
         (<any>window).TicTacToe.helpers.drawBoard();
-        // (<any>window).TicTacToe.helpers.clearCanvas()
-        // (<any>window).TicTacToe.helpers.drawTarget()
-        // (<any>window).TicTacToe.helpers.drawSnake()
         (<any>window).TicTacToe.helpers.requestAnimation();
     }
 }
