@@ -84,16 +84,30 @@ var Helpers = /** @class */ (function (_super) {
         return func.join('');
     };
     Helpers.processClick = function (e) {
+        //VARIABLE DECLARATION
         var game = window.TicTacToe;
         var data = game.match.cells;
         var unit = game.canvasBounds[0] / 3;
-        unit = game.canvasBounds[0] / 3;
         var i = Math.floor(e.clientY / unit);
         var j = Math.floor(e.clientX / unit);
-        if (data[i][j]) {
+        var player = game.match.players[game.counters.cycle];
+        //FREE CELL DETECTED
+        if (data[i][j] && !data[i][j].state) {
+            //DATA UPDATE
+            player.cellsPlayed.push(data[i][j]);
             data[i][j].state = true;
-            data[i][j].player = 0;
-            console.log('pass', data[i][j]);
+            data[i][j].player = player;
+            //GETS PLAYERS TURN'S INDEX
+            game.counters.cycle++;
+            //GETS MATRIX CELLS PLAYED
+            game.counters.cellsPlayed++;
+            //LIMITS
+            if (game.counters.cycle === game.match.players.length) {
+                game.counters.cycle = 0;
+            }
+            if (game.counters.cellsPlayed === 9) {
+                game.state.changeState('match over');
+            }
         }
         window.TicTacToe.helpers.drawBoard();
     };

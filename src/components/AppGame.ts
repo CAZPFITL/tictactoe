@@ -3,8 +3,13 @@ import State, { StateProps } from './State.js';
 
 type MatchProps = {
     // cells?: any[]
-    cells ?: Array<any>
-    players ?: Array<any>
+    cells?: Array<any>;
+    players?: Array<any>;
+}
+type CountersProps = {
+    stepSize?: number;
+    cycle?: number;
+    cellsPlayed?: number;
 }
 export class AppGame {
     readonly name: string;
@@ -15,7 +20,7 @@ export class AppGame {
     match: MatchProps;
     game: object;
     ctx: object;
-    counters: object;
+    counters: CountersProps;
     fullScreen: () => void;
     normalScreen: () => void;
 
@@ -24,19 +29,33 @@ export class AppGame {
         this.isFull = false;
         this.match = {
             cells: [
-                [{ name: "1-1",state: false, player: false }, { name: "1-2",state: false, player: false }, { name: "1-3",state: false, player: false }], 
-                [{ name: "2-1",state: false, player: false }, { name: "2-2",state: false, player: false }, { name: "2-3",state: false, player: false }], 
-                [{ name: "3-1",state: false, player: false }, { name: "3-2",state: false, player: false }, { name: "3-3",state: false, player: false }]
+                [
+                    { position: <string>"1-1", state: <boolean>false, player: <boolean>false },
+                    { position: <string>"1-2", state: <boolean>false, player: <boolean>false },
+                    { position: <string>"1-3", state: <boolean>false, player: <boolean>false }
+                ],
+                [
+                    { position: <string>"2-1", state: <boolean>false, player: <boolean>false },
+                    { position: <string>"2-2", state: <boolean>false, player: <boolean>false },
+                    { position: <string>"2-3", state: <boolean>false, player: <boolean>false }
+                ],
+                [
+                    { position: <string>"3-1", state: <boolean>false, player: <boolean>false },
+                    { position: <string>"3-2", state: <boolean>false, player: <boolean>false },
+                    { position: <string>"3-3", state: <boolean>false, player: <boolean>false }
+                ]
             ],
-            players: [ //TODO: use uuid to multiplayer
-                {id: <number>0, cells: <any[]>[]},
-                {id: <number>0, cells: <any[]>[]}
-            ]
+            players: [ //TODO: use uuid 4 multiplayer
+                { id: <number>0, cellsPlayed: <any[]>[], turn: <boolean>false },
+                { id: <number>1, cellsPlayed: <any[]>[], turn: <boolean>false }
+            ],
         };
         this.state = new State(this) as StateProps;
         this.helpers = Helpers;
         this.counters = {
-            stepSize: 20
+            stepSize: 20,
+            cycle: 0,
+            cellsPlayed: 0
         };
         (<any>window).TicTacToe = this;
     }
@@ -52,9 +71,9 @@ export class AppGame {
     notification() {
         // game.helpers.drawScreen(game.state.state)
         let funct: string = (<any>window).TicTacToe.helpers.getStateFunction();
-        console.log('state:', funct)
+        console.log('state:', funct);
         if ((<any>window).TicTacToe[funct]) {
-            (<any>window).TicTacToe[funct]()
+            (<any>window).TicTacToe[funct]();
         }
     }
 
@@ -64,5 +83,9 @@ export class AppGame {
         (<any>window).TicTacToe.helpers.fullScreenFunctionality();
         (<any>window).TicTacToe.ctx.canvas.addEventListener('mousedown', (<any>window).TicTacToe.helpers.processClick);
         window.addEventListener('resize', (<any>window).TicTacToe.helpers.getCanvas);
+    }
+
+    matchOver() {
+        console.log('match over');
     }
 }

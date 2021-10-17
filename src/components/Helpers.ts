@@ -69,28 +69,43 @@ export default class Helpers extends Canvas {
      * @returns processed state
      */
     public static getStateFunction(): string {
-        const game: any = (<any>window).TicTacToe
+        const game: any = (<any>window).TicTacToe;
 
-        let func = game.state.state.split(' ')
-        func[1] = game.helpers.capitalize(func[1])
-        return func.join('')
+        let func: any[] = game.state.state.split(' ');
+        func[1] = game.helpers.capitalize(func[1]);
+        return <string>func.join('');
     }
 
 
     public static processClick(e: any): void {
+        //VARIABLE DECLARATION
         const game: any = (<any>window).TicTacToe;
-        let data = game.match.cells;
-        let unit = game.canvasBounds[0] / 3;
-        unit = game.canvasBounds[0] / 3;
-        let i = Math.floor(e.clientY / unit);
-        let j = Math.floor(e.clientX / unit);
-
-        if (data[i][j]) {
-            data[i][j].state = <boolean>true;
-            data[i][j].player = <number>0;
-            console.log('pass', data[i][j])
-        }
+        let data = <any[]>game.match.cells;
+        let unit = <any>game.canvasBounds[0] / 3;
+        let i = <number>Math.floor(e.clientY / unit);
+        let j = <number>Math.floor(e.clientX / unit);
+        let player = <any>game.match.players[game.counters.cycle];
         
+        //FREE CELL DETECTED
+        if (data[i][j] && !data[i][j].state) {
+            //DATA UPDATE
+            player.cellsPlayed.push(<object>data[i][j]);
+            data[i][j].state = <boolean>true;
+            data[i][j].player = <object>player;
+            
+            //GETS PLAYERS TURN'S INDEX
+            game.counters.cycle++;
+            //GETS MATRIX CELLS PLAYED
+            game.counters.cellsPlayed++;
+            
+            //LIMITS
+            if (game.counters.cycle === game.match.players.length) {
+                game.counters.cycle = <number>0;
+            }
+            if (game.counters.cellsPlayed === 9) {
+                game.state.changeState('match over')
+            }
+        }
         (<any>window).TicTacToe.helpers.drawBoard();
     }
 }
