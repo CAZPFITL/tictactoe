@@ -26,6 +26,7 @@ var AppGame = /** @class */ (function () {
                 { id: 0, cellsPlayed: [], turn: false },
                 { id: 1, cellsPlayed: [], turn: false }
             ],
+            selectedCell: null,
             winner: []
         };
         this.state = new State(this);
@@ -70,19 +71,19 @@ var AppGame = /** @class */ (function () {
         window.TicTacToe.match = {
             cells: [
                 [
-                    { position: "1-1", state: false, player: false },
-                    { position: "1-2", state: false, player: false },
-                    { position: "1-3", state: false, player: false }
+                    { position: [1, 1], state: false, player: false },
+                    { position: [2, 1], state: false, player: false },
+                    { position: [3, 1], state: false, player: false }
                 ],
                 [
-                    { position: "2-1", state: false, player: false },
-                    { position: "2-2", state: false, player: false },
-                    { position: "2-3", state: false, player: false }
+                    { position: [1, 2], state: false, player: false },
+                    { position: [2, 2], state: false, player: false },
+                    { position: [3, 2], state: false, player: false }
                 ],
                 [
-                    { position: "3-1", state: false, player: false },
-                    { position: "3-2", state: false, player: false },
-                    { position: "3-3", state: false, player: false }
+                    { position: [1, 3], state: false, player: false },
+                    { position: [2, 3], state: false, player: false },
+                    { position: [3, 3], state: false, player: false }
                 ]
             ],
             players: [
@@ -93,6 +94,7 @@ var AppGame = /** @class */ (function () {
     };
     AppGame.prototype.matchOver = function () {
         console.log('match over');
+        window.TicTacToe.state.changeState('load request');
     };
     return AppGame;
 }());

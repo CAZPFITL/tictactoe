@@ -46,6 +46,7 @@ var Canvas = /** @class */ (function () {
      */
     Canvas.drawBoard = function () {
         var game = window.TicTacToe;
+        var marginLeft = (window.innerWidth - game.ctx.canvas.width) / 2;
         var unitW = game.canvasBounds[0] / 3;
         var unitH = (game.canvasBounds[1]) / 3;
         //Horizontal lines:
@@ -66,12 +67,14 @@ var Canvas = /** @class */ (function () {
         game.ctx.lineTo((unitW * 2), 0);
         game.ctx.stroke();
         //selected cells:
+        game.ctx.canvas.style.marginLeft = marginLeft + "px";
     };
     /**
      * draw game
      */
     Canvas.draw = function () {
         window.TicTacToe.helpers.drawBoard();
+        window.TicTacToe.helpers.drawPlayedBoxes();
         window.TicTacToe.helpers.requestAnimation();
     };
     return Canvas;

@@ -52,8 +52,10 @@ export default class Canvas {
      */
     public static drawBoard(): void {
         const game: any = (<any>window).TicTacToe;
-        const unitW = game.canvasBounds[0] / 3
-        const unitH = (game.canvasBounds[1]) / 3
+        const marginLeft = (window.innerWidth - game.ctx.canvas.width) / 2;
+        const unitW = game.canvasBounds[0] / 3;
+        const unitH = (game.canvasBounds[1]) / 3;
+
         //Horizontal lines:
         game.ctx.beginPath();
         game.ctx.moveTo((unitW * 3), unitH);
@@ -74,15 +76,17 @@ export default class Canvas {
         game.ctx.moveTo((unitW * 2), (unitH * 3));
         game.ctx.lineTo((unitW * 2), 0);
         game.ctx.stroke();
-
+        
         //selected cells:
+        game.ctx.canvas.style.marginLeft = `${marginLeft}px`;
     }
 
     /**
      * draw game
      */
-    public static draw() {
+    public static draw(): void {
         (<any>window).TicTacToe.helpers.drawBoard();
+        (<any>window).TicTacToe.helpers.drawPlayedBoxes();
         (<any>window).TicTacToe.helpers.requestAnimation();
     }
 }

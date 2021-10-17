@@ -65,15 +65,6 @@ var Helpers = /** @class */ (function (_super) {
         }
     };
     /**
-     * This function helps to get the relative coordenate for your game canvas
-     * @param {number to be converted} num
-     * @returns number converted
-     */
-    Helpers.getStepSize = function (num) {
-        console.log('iasdaishdsad');
-        return window.TicTacToe.counters.stepSize * num;
-    };
-    /**
      * returns state function related
      * @returns processed state
      */
@@ -86,10 +77,12 @@ var Helpers = /** @class */ (function (_super) {
     Helpers.processClick = function (e) {
         //VARIABLE DECLARATION
         var game = window.TicTacToe;
+        var adjust = parseFloat(game.ctx.canvas.style.marginLeft.slice(0, -2)); // adjust the e.clientX
+        var unitW = game.canvasBounds[0] / 3;
+        var unitH = game.canvasBounds[1] / 3;
         var data = game.match.cells;
-        var unit = game.canvasBounds[0] / 3;
-        var i = Math.floor(e.clientY / unit);
-        var j = Math.floor(e.clientX / unit);
+        var i = Math.floor(e.clientY / unitH);
+        var j = Math.floor((e.clientX - adjust) / unitW);
         var player = game.match.players[game.counters.cycle];
         //FREE CELL DETECTED
         if (data[i][j] && !data[i][j].state) {
@@ -101,15 +94,31 @@ var Helpers = /** @class */ (function (_super) {
             game.counters.cycle++;
             //GETS MATRIX CELLS PLAYED
             game.counters.cellsPlayed++;
+            //LAST CELL SELECTED
+            game.match.selectedCell = data[i][j];
             //LIMITS
             if (game.counters.cycle === game.match.players.length) {
                 game.counters.cycle = 0;
             }
             if (game.counters.cellsPlayed === 9) {
                 game.state.changeState('match over');
+                return;
             }
+            console.log(game.match.selectedCell.position);
         }
-        window.TicTacToe.helpers.drawBoard();
+        window.TicTacToe.helpers.drawBoard(data[i][j]);
+    };
+    Helpers.drawPlayedBoxes = function () {
+        var game = window.TicTacToe;
+        var players = game.match.players;
+        players.forEach(function (player) {
+            var cells = player.cellsPlayed;
+            cells.forEach(function (cell) {
+                var position = [cell.position[0], cell.position[1]];
+                var unit = [game.canvasBounds[0] / 3, game.canvasBounds[1] / 3];
+                game.ctx.fillRect(((position[0] - 1) * unit[0]), ((position[1] - 1) * unit[1]), unit[0], unit[1]);
+            });
+        });
     };
     return Helpers;
 }(Canvas));

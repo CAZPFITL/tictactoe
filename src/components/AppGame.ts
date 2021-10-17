@@ -5,6 +5,7 @@ type MatchProps = {
     // cells?: any[]
     cells?: Array<any>;
     players?: Array<any>;
+    selectedCell?: any;
     winner?: Array<any>;
 }
 type CountersProps = {
@@ -50,6 +51,7 @@ export class AppGame {
                 { id: <number>0, cellsPlayed: <any[]>[], turn: <boolean>false },
                 { id: <number>1, cellsPlayed: <any[]>[], turn: <boolean>false }
             ],
+            selectedCell: <any>null,
             winner: <any[]>[]
         };
         this.state = new State(this) as StateProps;
@@ -98,19 +100,19 @@ export class AppGame {
         (<any>window).TicTacToe.match = {
             cells: [
                 [
-                    { position: <string>"1-1", state: <boolean>false, player: <boolean>false },
-                    { position: <string>"1-2", state: <boolean>false, player: <boolean>false },
-                    { position: <string>"1-3", state: <boolean>false, player: <boolean>false }
+                    { position: <any[]>[1, 1], state: <boolean>false, player: <boolean>false },
+                    { position: <any[]>[2, 1], state: <boolean>false, player: <boolean>false },
+                    { position: <any[]>[3, 1], state: <boolean>false, player: <boolean>false }
                 ],
                 [
-                    { position: <string>"2-1", state: <boolean>false, player: <boolean>false },
-                    { position: <string>"2-2", state: <boolean>false, player: <boolean>false },
-                    { position: <string>"2-3", state: <boolean>false, player: <boolean>false }
+                    { position: <any[]>[1, 2], state: <boolean>false, player: <boolean>false },
+                    { position: <any[]>[2, 2], state: <boolean>false, player: <boolean>false },
+                    { position: <any[]>[3, 2], state: <boolean>false, player: <boolean>false }
                 ],
                 [
-                    { position: <string>"3-1", state: <boolean>false, player: <boolean>false },
-                    { position: <string>"3-2", state: <boolean>false, player: <boolean>false },
-                    { position: <string>"3-3", state: <boolean>false, player: <boolean>false }
+                    { position: <any[]>[1, 3], state: <boolean>false, player: <boolean>false },
+                    { position: <any[]>[2, 3], state: <boolean>false, player: <boolean>false },
+                    { position: <any[]>[3, 3], state: <boolean>false, player: <boolean>false }
                 ]
             ],
             players: [ //TODO: use uuid 4 multiplayer
@@ -119,8 +121,9 @@ export class AppGame {
             ],
         };
     }
-
+    
     matchOver() {
         console.log('match over');
+        (<any>window).TicTacToe.state.changeState('load request');
     }
 }
