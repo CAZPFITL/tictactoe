@@ -115,6 +115,7 @@ var Helpers = /** @class */ (function (_super) {
                 (game.match.cells[0][2].player.symbol && game.match.cells[0][2].player.symbol === game.match.cells[1][2].player.symbol && game.match.cells[0][2].player.symbol === game.match.cells[2][2].player.symbol) ||
                 (game.match.cells[0][0].player.symbol && game.match.cells[0][0].player.symbol === game.match.cells[1][1].player.symbol && game.match.cells[0][0].player.symbol === game.match.cells[2][2].player.symbol) ||
                 (game.match.cells[2][0].player.symbol && game.match.cells[2][0].player.symbol === game.match.cells[1][1].player.symbol && game.match.cells[2][0].player.symbol === game.match.cells[0][2].player.symbol)) {
+                game.match.winner = player;
                 game.state.changeState("match over");
             }
             else if (game.counters.cellsPlayed === 9) {

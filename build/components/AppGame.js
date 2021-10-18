@@ -67,11 +67,18 @@ var AppGame = /** @class */ (function () {
                 { id: 1, cellsPlayed: [], symbol: 'O' }
             ],
             selectedCell: null,
-            winner: null,
+            winner: false,
         };
         game.state.changeState("player's " + (game.counters.cycle + 1) + " turn");
     };
     AppGame.prototype.matchOver = function () {
+        var game = window.TicTacToe;
+        if (game.match.winner) {
+            alert(game.match.winner.symbol + "'s wins!");
+        }
+        else {
+            alert('tie');
+        }
         console.log('match over');
     };
     return AppGame;

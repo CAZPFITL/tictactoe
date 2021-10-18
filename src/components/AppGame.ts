@@ -96,13 +96,19 @@ export class AppGame {
                 { id: <number>1, cellsPlayed: <any[]>[], symbol: <string>'O' }
             ],
             selectedCell: <any>null,
-            winner: <any>null,
+            winner: <any>false,
         };
         game.state.changeState(<string>`player's ${game.counters.cycle + 1} turn`);
 
     }
     
     matchOver() {
+        const game: any = (<any>window).TicTacToe;
+        if(game.match.winner) {
+            alert(`${game.match.winner.symbol}'s wins!`)
+        } else {
+            alert('tie')
+        }
         console.log('match over');
     }
 }
