@@ -4,31 +4,6 @@ var AppGame = /** @class */ (function () {
     function AppGame() {
         this.name = 'Tic Tac Toe';
         this.isFull = false;
-        this.match = {
-            cells: [
-                [
-                    { position: "1-1", state: false, player: false },
-                    { position: "1-2", state: false, player: false },
-                    { position: "1-3", state: false, player: false }
-                ],
-                [
-                    { position: "2-1", state: false, player: false },
-                    { position: "2-2", state: false, player: false },
-                    { position: "2-3", state: false, player: false }
-                ],
-                [
-                    { position: "3-1", state: false, player: false },
-                    { position: "3-2", state: false, player: false },
-                    { position: "3-3", state: false, player: false }
-                ]
-            ],
-            players: [
-                { id: 0, cellsPlayed: [], turn: false },
-                { id: 1, cellsPlayed: [], turn: false }
-            ],
-            selectedCell: null,
-            winner: []
-        };
         this.state = new State(this);
         this.helpers = Helpers;
         this.counters = {
@@ -57,18 +32,19 @@ var AppGame = /** @class */ (function () {
         console.log('hello from load request');
         window.TicTacToe.helpers.createCanvas();
         window.TicTacToe.helpers.fullScreenFunctionality();
-        window.TicTacToe.ctx.canvas.addEventListener('mousedown', window.TicTacToe.helpers.processClick);
+        window.TicTacToe.ctx.canvas.addEventListener('mouseup', window.TicTacToe.helpers.processClick);
         window.addEventListener('resize', window.TicTacToe.helpers.getCanvas);
         window.TicTacToe.state.changeState('new match');
     };
     AppGame.prototype.newMatch = function () {
         console.log('new match');
-        window.TicTacToe.counters = {
+        var game = window.TicTacToe;
+        game.counters = {
             stepSize: 20,
             cycle: 0,
             cellsPlayed: 0
         };
-        window.TicTacToe.match = {
+        game.match = {
             cells: [
                 [
                     { position: [1, 1], state: false, player: false },
@@ -87,14 +63,16 @@ var AppGame = /** @class */ (function () {
                 ]
             ],
             players: [
-                { id: 0, cellsPlayed: [], turn: false },
-                { id: 1, cellsPlayed: [], turn: false }
+                { id: 0, cellsPlayed: [], symbol: 'X' },
+                { id: 1, cellsPlayed: [], symbol: 'O' }
             ],
+            selectedCell: null,
+            winner: null,
         };
+        game.state.changeState("player's " + (game.counters.cycle + 1) + " turn");
     };
     AppGame.prototype.matchOver = function () {
         console.log('match over');
-        window.TicTacToe.state.changeState('load request');
     };
     return AppGame;
 }());

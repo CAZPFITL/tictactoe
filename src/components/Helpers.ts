@@ -66,9 +66,15 @@ export default class Helpers extends Canvas {
         return <string>func.join('');
     }
 
-
+    //fill winner
+    //go to match over 
+    // read next state from match over 
     public static processClick(e: any): void {
         //VARIABLE DECLARATION
+        if ((<any>window).TicTacToe.state.state === 'match over') {
+            (<any>window).TicTacToe.state.changeState('load request');
+            return;
+        }
         const game: any = (<any>window).TicTacToe;
         const adjust = <number>parseFloat(game.ctx.canvas.style.marginLeft.slice(0, -2)); // adjust the e.clientX
         const unitW = <number>game.canvasBounds[0] / 3;
@@ -91,15 +97,28 @@ export default class Helpers extends Canvas {
             game.counters.cellsPlayed++;
             //LAST CELL SELECTED
             game.match.selectedCell = <object>data[i][j];
+
             //LIMITS
             if (game.counters.cycle === game.match.players.length) {
                 game.counters.cycle = <number>0;
             }
-            if (game.counters.cellsPlayed === 9) {
-                game.state.changeState(<string>'match over');
-                return;
-            }
-            console.log(game.match.selectedCell.position);
+
+            if (
+                (game.match.cells[0][0].player.symbol && game.match.cells[0][0].player.symbol === game.match.cells[0][1].player.symbol && game.match.cells[0][0].player.symbol === game.match.cells[0][2].player.symbol) ||
+                (game.match.cells[1][0].player.symbol && game.match.cells[1][0].player.symbol === game.match.cells[1][1].player.symbol && game.match.cells[1][0].player.symbol === game.match.cells[1][2].player.symbol) ||
+                (game.match.cells[2][0].player.symbol && game.match.cells[2][0].player.symbol === game.match.cells[2][1].player.symbol && game.match.cells[2][0].player.symbol === game.match.cells[2][2].player.symbol) ||
+                (game.match.cells[0][0].player.symbol && game.match.cells[0][0].player.symbol === game.match.cells[1][0].player.symbol && game.match.cells[0][0].player.symbol === game.match.cells[2][0].player.symbol) ||
+                (game.match.cells[0][1].player.symbol && game.match.cells[0][1].player.symbol === game.match.cells[1][1].player.symbol && game.match.cells[0][1].player.symbol === game.match.cells[2][1].player.symbol) ||
+                (game.match.cells[0][2].player.symbol && game.match.cells[0][2].player.symbol === game.match.cells[1][2].player.symbol && game.match.cells[0][2].player.symbol === game.match.cells[2][2].player.symbol) ||
+                (game.match.cells[0][0].player.symbol && game.match.cells[0][0].player.symbol === game.match.cells[1][1].player.symbol && game.match.cells[0][0].player.symbol === game.match.cells[2][2].player.symbol) ||
+                (game.match.cells[2][0].player.symbol && game.match.cells[2][0].player.symbol === game.match.cells[1][1].player.symbol && game.match.cells[2][0].player.symbol === game.match.cells[0][2].player.symbol)
+            ) {
+                game.state.changeState(<string>`match over`);
+            } else if (game.counters.cellsPlayed === 9) {
+                game.state.changeState(<string>`match over`);
+            } else {
+                game.state.changeState(<string>`player${game.counters.cycle + 1} turn`);
+            }             
         }
         (<any>window).TicTacToe.helpers.drawBoard(<object>data[i][j]);
     }
@@ -113,12 +132,40 @@ export default class Helpers extends Canvas {
             cells.forEach(cell => {
                 const position = [cell.position[0], cell.position[1]];
                 const unit = [game.canvasBounds[0] / 3, game.canvasBounds[1] / 3];
-                game.ctx.fillRect(
-                    ((position[0] - 1) * unit[0]),
-                    ((position[1] - 1) * unit[1]),
-                    unit[0],
-                    unit[1],
-                );
+                const u2 = <number>(unit[0] / 2);
+                const space = <number>20;
+                if (cell.player.symbol === 'X') 
+                {
+                    game.ctx.beginPath();
+                    game.ctx.moveTo(
+                        ((position[0] - 1) * unit[0]) + space, 
+                        ((position[1] - 1) * unit[1]) + space
+                    );
+                    game.ctx.lineTo(
+                        ((position[0]) * unit[0]) - space, 
+                        ((position[1]) * unit[1]) - space
+                    );
+                    game.ctx.stroke();
+                    
+                    game.ctx.moveTo(
+                        ((position[0]) * unit[0]) - space, 
+                        ((position[1] - 1) * unit[1]) + space
+                    );
+                    game.ctx.lineTo(
+                        ((position[0] - 1) * unit[0]) + space, 
+                        ((position[1]) * unit[1]) - space
+                    );
+                    game.ctx.stroke();
+                } else 
+                {
+                    game.ctx.beginPath();
+                    game.ctx.arc(
+                        (((position[0] - 1) * unit[0]) + u2), 
+                        (((position[1] - 1) * unit[1]) + u2), 
+                        u2 - space, 0, 2 * Math.PI
+                    );
+                    game.ctx.stroke();
+                }
             })
         })
     }

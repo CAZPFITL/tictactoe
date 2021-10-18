@@ -74,8 +74,15 @@ var Helpers = /** @class */ (function (_super) {
         func[1] = game.helpers.capitalize(func[1]);
         return func.join('');
     };
+    //fill winner
+    //go to match over 
+    // read next state from match over 
     Helpers.processClick = function (e) {
         //VARIABLE DECLARATION
+        if (window.TicTacToe.state.state === 'match over') {
+            window.TicTacToe.state.changeState('load request');
+            return;
+        }
         var game = window.TicTacToe;
         var adjust = parseFloat(game.ctx.canvas.style.marginLeft.slice(0, -2)); // adjust the e.clientX
         var unitW = game.canvasBounds[0] / 3;
@@ -100,11 +107,22 @@ var Helpers = /** @class */ (function (_super) {
             if (game.counters.cycle === game.match.players.length) {
                 game.counters.cycle = 0;
             }
-            if (game.counters.cellsPlayed === 9) {
-                game.state.changeState('match over');
-                return;
+            if ((game.match.cells[0][0].player.symbol && game.match.cells[0][0].player.symbol === game.match.cells[0][1].player.symbol && game.match.cells[0][0].player.symbol === game.match.cells[0][2].player.symbol) ||
+                (game.match.cells[1][0].player.symbol && game.match.cells[1][0].player.symbol === game.match.cells[1][1].player.symbol && game.match.cells[1][0].player.symbol === game.match.cells[1][2].player.symbol) ||
+                (game.match.cells[2][0].player.symbol && game.match.cells[2][0].player.symbol === game.match.cells[2][1].player.symbol && game.match.cells[2][0].player.symbol === game.match.cells[2][2].player.symbol) ||
+                (game.match.cells[0][0].player.symbol && game.match.cells[0][0].player.symbol === game.match.cells[1][0].player.symbol && game.match.cells[0][0].player.symbol === game.match.cells[2][0].player.symbol) ||
+                (game.match.cells[0][1].player.symbol && game.match.cells[0][1].player.symbol === game.match.cells[1][1].player.symbol && game.match.cells[0][1].player.symbol === game.match.cells[2][1].player.symbol) ||
+                (game.match.cells[0][2].player.symbol && game.match.cells[0][2].player.symbol === game.match.cells[1][2].player.symbol && game.match.cells[0][2].player.symbol === game.match.cells[2][2].player.symbol) ||
+                (game.match.cells[0][0].player.symbol && game.match.cells[0][0].player.symbol === game.match.cells[1][1].player.symbol && game.match.cells[0][0].player.symbol === game.match.cells[2][2].player.symbol) ||
+                (game.match.cells[2][0].player.symbol && game.match.cells[2][0].player.symbol === game.match.cells[1][1].player.symbol && game.match.cells[2][0].player.symbol === game.match.cells[0][2].player.symbol)) {
+                game.state.changeState("match over");
             }
-            console.log(game.match.selectedCell.position);
+            else if (game.counters.cellsPlayed === 9) {
+                game.state.changeState("match over");
+            }
+            else {
+                game.state.changeState("player" + (game.counters.cycle + 1) + " turn");
+            }
         }
         window.TicTacToe.helpers.drawBoard(data[i][j]);
     };
@@ -116,7 +134,22 @@ var Helpers = /** @class */ (function (_super) {
             cells.forEach(function (cell) {
                 var position = [cell.position[0], cell.position[1]];
                 var unit = [game.canvasBounds[0] / 3, game.canvasBounds[1] / 3];
-                game.ctx.fillRect(((position[0] - 1) * unit[0]), ((position[1] - 1) * unit[1]), unit[0], unit[1]);
+                var u2 = (unit[0] / 2);
+                var space = 20;
+                if (cell.player.symbol === 'X') {
+                    game.ctx.beginPath();
+                    game.ctx.moveTo(((position[0] - 1) * unit[0]) + space, ((position[1] - 1) * unit[1]) + space);
+                    game.ctx.lineTo(((position[0]) * unit[0]) - space, ((position[1]) * unit[1]) - space);
+                    game.ctx.stroke();
+                    game.ctx.moveTo(((position[0]) * unit[0]) - space, ((position[1] - 1) * unit[1]) + space);
+                    game.ctx.lineTo(((position[0] - 1) * unit[0]) + space, ((position[1]) * unit[1]) - space);
+                    game.ctx.stroke();
+                }
+                else {
+                    game.ctx.beginPath();
+                    game.ctx.arc((((position[0] - 1) * unit[0]) + u2), (((position[1] - 1) * unit[1]) + u2), u2 - space, 0, 2 * Math.PI);
+                    game.ctx.stroke();
+                }
             });
         });
     };

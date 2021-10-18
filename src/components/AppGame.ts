@@ -29,31 +29,6 @@ export class AppGame {
     constructor() {
         this.name = 'Tic Tac Toe';
         this.isFull = false;
-        this.match = {
-            cells: [
-                [
-                    { position: <string>"1-1", state: <boolean>false, player: <boolean>false },
-                    { position: <string>"1-2", state: <boolean>false, player: <boolean>false },
-                    { position: <string>"1-3", state: <boolean>false, player: <boolean>false }
-                ],
-                [
-                    { position: <string>"2-1", state: <boolean>false, player: <boolean>false },
-                    { position: <string>"2-2", state: <boolean>false, player: <boolean>false },
-                    { position: <string>"2-3", state: <boolean>false, player: <boolean>false }
-                ],
-                [
-                    { position: <string>"3-1", state: <boolean>false, player: <boolean>false },
-                    { position: <string>"3-2", state: <boolean>false, player: <boolean>false },
-                    { position: <string>"3-3", state: <boolean>false, player: <boolean>false }
-                ]
-            ],
-            players: [ //TODO: use uuid 4 multiplayer
-                { id: <number>0, cellsPlayed: <any[]>[], turn: <boolean>false },
-                { id: <number>1, cellsPlayed: <any[]>[], turn: <boolean>false }
-            ],
-            selectedCell: <any>null,
-            winner: <any[]>[]
-        };
         this.state = new State(this) as StateProps;
         this.helpers = Helpers;
         this.counters = {
@@ -85,19 +60,20 @@ export class AppGame {
         console.log('hello from load request');
         (<any>window).TicTacToe.helpers.createCanvas();
         (<any>window).TicTacToe.helpers.fullScreenFunctionality();
-        (<any>window).TicTacToe.ctx.canvas.addEventListener('mousedown', (<any>window).TicTacToe.helpers.processClick);
+        (<any>window).TicTacToe.ctx.canvas.addEventListener('mouseup', (<any>window).TicTacToe.helpers.processClick);
         window.addEventListener('resize', (<any>window).TicTacToe.helpers.getCanvas);
         (<any>window).TicTacToe.state.changeState('new match');
     }
     
     newMatch() {
         console.log('new match');
-        (<any>window).TicTacToe.counters = {
+        const game: any = (<any>window).TicTacToe;
+        game.counters = {
             stepSize: 20,
             cycle: 0,
             cellsPlayed: 0
         };
-        (<any>window).TicTacToe.match = {
+        game.match = {
             cells: [
                 [
                     { position: <any[]>[1, 1], state: <boolean>false, player: <boolean>false },
@@ -116,14 +92,17 @@ export class AppGame {
                 ]
             ],
             players: [ //TODO: use uuid 4 multiplayer
-                { id: <number>0, cellsPlayed: <any[]>[], turn: <boolean>false },
-                { id: <number>1, cellsPlayed: <any[]>[], turn: <boolean>false }
+                { id: <number>0, cellsPlayed: <any[]>[], symbol: <string>'X' },
+                { id: <number>1, cellsPlayed: <any[]>[], symbol: <string>'O' }
             ],
+            selectedCell: <any>null,
+            winner: <any>null,
         };
+        game.state.changeState(<string>`player's ${game.counters.cycle + 1} turn`);
+
     }
     
     matchOver() {
         console.log('match over');
-        (<any>window).TicTacToe.state.changeState('load request');
     }
 }
