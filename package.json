@@ -4,7 +4,8 @@
   "description": "classic tic tac toe game",
   "main": "src/app.ts",
   "scripts": {
-    "build": "tsc"
+    "dev": "tsc",
+    "build": "tsc --outDir public"
   },
   "author": "CAZPFITL",
   "license": "MIT",
