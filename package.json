@@ -10,6 +10,7 @@
   "author": "CAZPFITL",
   "license": "MIT",
   "dependencies": {
+    "@types/node": "^16.11.1",
     "nodemon": "^2.0.13",
     "ts-node": "^10.3.0",
     "typescript": "^4.4.4"
