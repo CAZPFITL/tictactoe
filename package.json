@@ -9,7 +9,9 @@
   "author": "CAZPFITL",
   "license": "MIT",
   "dependencies": {
+    "@types/p5": "^1.3.1",
     "nodemon": "^2.0.13",
+    "p5": "^1.4.0",
     "ts-node": "^10.3.0"
   }
 }
